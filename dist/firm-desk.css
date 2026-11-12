@@ -1,0 +1,11 @@
+.role-desk #desk-status { min-height: 1.5em; }
+.role-desk #desk-status[data-error="true"] { color: #922f34; }
+.role-desk .desk-period { display: flex; flex-wrap: wrap; align-items: end; }
+.desk-table { overflow-x: auto; margin: 1rem 0; }
+.desk-table table { border-collapse: collapse; min-width: 100%; }
+.desk-table th, .desk-table td { text-align: left; padding: .5rem; border-bottom: 1px solid #e3e9ef; vertical-align: top; }
+.desk-table th { color: #364c63; font-weight: 650; }
+.desk-action { border-top: 1px solid #e3e9ef; padding: .6rem 0; }
+.desk-action h3, .desk-action p { margin: .35rem 0; }
+.role-desk details.desk-inline { padding: .6rem; margin: .5rem 0; }
+.desk-report-link { display: inline-block; margin: .4rem 0; }

@@ -1,0 +1,46 @@
+{
+  "id": "ellis-medical-records",
+  "name": "Ellis Medical Records.pdf",
+  "sha256": "f1ff73411804dec64914b4ff9a5330a15a012975a99932b05e4a05cc7a295ff5",
+  "bytes": 56482,
+  "engine": "Local PDF and OCR",
+  "importedAt": "2026-11-11T23:57:41.193Z",
+  "pages": [
+    {
+      "number": 1,
+      "label": "ELLIS-0000",
+      "text": "Ellis medical records\nSample matter PI-2026-014\n\nFictional plaintiff personal injury records\n\nPDF page 1 is the cover. Clinical records begin on PDF page 2.\n\nOne follow-up record is an image-only scan.\n\nBates: ELLIS-0000",
+      "method": "text"
+    },
+    {
+      "number": 2,
+      "label": "ELLIS-0001",
+      "text": "Harborview Medical Center\n HM      CLINICAL ENCOUNTER RECORD\n\n\n\n\nEmergency department visit\nDate of service: 04/07/2026\nProvider: Harborview Medical Center\nPatient: Morgan Ellis\nEvent: Emergency department visit\n\n\n\n\n  Summary: Patient reported neck stiffness and right shoulder pain after a rear-end collision.\n\n\n\n\nFindings: Exam noted cervical paraspinal tenderness. Shoulder range of motion was limited by pain.\n\nPlan: Discharged with instructions for follow-up if symptoms persisted.\n\n\n\n\nSYNTHETIC TRAINING RECORD                                                                 Bates: ELLIS-0001",
+      "method": "text"
+    },
+    {
+      "number": 3,
+      "label": "ELLIS-0002",
+      "text": "Northbank Diagnostic Imaging\n ND      CLINICAL ENCOUNTER RECORD\n\n\n\n\nCervical spine X-ray\nDate of service: 04/08/2026\nProvider: Northbank Diagnostic Imaging\nPatient: Morgan Ellis\nEvent: Cervical spine X-ray\n\n\n\n\n  Summary: No acute fracture or malalignment was identified on cervical spine radiographs.\n\n\n\n\nFindings: Mild straightening of the cervical lordosis was described.\n\nPlan: Clinical correlation was recommended.\n\n\n\n\nSYNTHETIC TRAINING RECORD                                                              Bates: ELLIS-0002",
+      "method": "text"
+    },
+    {
+      "number": 4,
+      "label": "ELLIS-0003",
+      "text": "JUNIPER FAMILY PRACTICE\n\nCLINICAL ENCOUNTER RECORD\n\nDate of service: 04/14/2026\n\nProvider: Juniper Family Practice\n\nPatient: Morgan Ellis\n\nEvent: Primary care follow-up\n\nSummary: Ongoing neck and shoulder symptoms were documented at follow-up.\nFindings: The patient reported difficulty sleeping and working at a computer.\nPlan: Referral to physical therapy was placed.\n\nBates: ELLIS-0003\n\nSYNTHETIC TRAINING RECORD",
+      "method": "ocr"
+    },
+    {
+      "number": 5,
+      "label": "ELLIS-0004",
+      "text": "Alder Physical Therapy\n AP      CLINICAL ENCOUNTER RECORD\n\n\n\n\nPhysical therapy evaluation\nDate of service: 04/22/2026\nProvider: Alder Physical Therapy\nPatient: Morgan Ellis\nEvent: Physical therapy evaluation\n\n\n\n\n  Summary: Initial evaluation documented limited cervical rotation and pain with overhead reach.\n\n\n\n\nFindings: Baseline home activity and functional limitations were recorded.\n\nPlan: Home exercises and two visits per week were planned.\n\n\n\n\nSYNTHETIC TRAINING RECORD                                                               Bates: ELLIS-0004",
+      "method": "text"
+    },
+    {
+      "number": 6,
+      "label": "ELLIS-0005",
+      "text": "Alder Physical Therapy\n AP      CLINICAL ENCOUNTER RECORD\n\n\n\n\nPhysical therapy reassessment\nDate of service: 05/06/2026\nProvider: Alder Physical Therapy\nPatient: Morgan Ellis\nEvent: Physical therapy reassessment\n\n\n\n\n  Summary: Cervical rotation improved and intermittent right shoulder pain persisted.\n\n\n\n\nFindings: The patient reported completing the home exercise program most days.\n\nPlan: Continue the plan of care and reassess in two weeks.\n\n\n\n\nSYNTHETIC TRAINING RECORD                                                               Bates: ELLIS-0005",
+      "method": "text"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+/data/
+/.work/
+/node_modules/
+/.env
+/.env.*
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+__pycache__/

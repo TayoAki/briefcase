@@ -1,0 +1,29 @@
+services:
+  broker:
+    image: docker.io/valkey/valkey:9-alpine
+    restart: unless-stopped
+    volumes:
+      - broker:/data
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:3.4.2
+    restart: unless-stopped
+    depends_on:
+      - broker
+    ports:
+      - "127.0.0.1:8010:8000"
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBENGINE: sqlite
+      PAPERLESS_URL: http://127.0.0.1:8010
+      PAPERLESS_SECRET_KEY: "${PAPERLESS_SECRET_KEY:?Set PAPERLESS_SECRET_KEY}"
+      PAPERLESS_ADMIN_USER: briefcase-admin
+      PAPERLESS_ADMIN_PASSWORD: "${PAPERLESS_ADMIN_PASSWORD:?Set PAPERLESS_ADMIN_PASSWORD}"
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_OCR_MODE: skip
+    volumes:
+      - paperless-data:/usr/src/paperless/data
+      - paperless-media:/usr/src/paperless/media
+volumes:
+  broker:
+  paperless-data:
+  paperless-media:

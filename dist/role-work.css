@@ -1,0 +1,19 @@
+.role-desk { max-width: 72rem; margin: auto; padding: 2rem clamp(1rem, 4vw, 3rem); }
+.role-desk a { color: #284b74; text-decoration: underline; }
+.role-desk h1, .role-desk h2 { margin: .7rem 0; }
+.role-desk #role-status { min-height: 1.5em; }
+.role-desk #role-status[data-error="true"] { color: #922f34; }
+.role-desk section, .role-desk details { margin: 1rem 0; padding: 1rem; background: white; border: 1px solid #dfe6ec; border-radius: .6rem; }
+.role-desk form, .role-desk .work-log { display: grid; gap: .8rem; }
+.role-desk form > label { display: grid; gap: .25rem; }
+.role-desk input:not([type="checkbox"]), .role-desk textarea, .role-desk select {
+  width: 100%; background: white; border: 1px solid #aebbc8; border-radius: .3rem; padding: .6rem; color: inherit; font: inherit;
+}
+.role-desk textarea { min-height: 5rem; resize: vertical; }
+.role-desk .work-queue { list-style: none; padding: 0; }
+.role-desk .work-queue li { border-top: 1px solid #e7ebef; padding: .7rem 0; }
+.role-desk .work-queue a { font-weight: 650; }
+.role-desk .work-meta { color: #536678; }
+.role-desk .work-copy { white-space: pre-wrap; overflow-wrap: anywhere; }
+.role-desk dd { margin: .2rem 0 .8rem; }
+.role-desk .work-actions { display: flex; gap: .6rem; flex-wrap: wrap; }

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Briefcase client portal</title><link rel="stylesheet" href="/portal.css"><script type="module" src="/portal.mjs"></script></head>
+<body><main><header><span>Briefcase Solo</span><h1>Client portal</h1></header>
+<form id="access"><label>Access code <input name="code" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" required autocomplete="off"></label>
+<button type="submit">Open shared files</button></form>
+<section id="workspace" hidden><h2 id="matter"></h2><ul id="files"></ul>
+<form id="upload" hidden><label>Submit a PDF <input name="file" type="file" accept=".pdf,application/pdf" required></label>
+<button type="submit">Submit for lawyer review</button></form></section><p id="result" role="status" aria-live="polite"></p></main></body></html>

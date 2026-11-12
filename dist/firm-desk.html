@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firm desk · Briefcase</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/role-work.css">
+  <link rel="stylesheet" href="/firm-desk.css">
+  <script type="module" src="/firm-desk-ui.mjs"></script>
+</head>
+<body>
+  <main class="role-desk">
+    <nav aria-label="Workspace"><a href="/">← Briefcase workspace</a></nav>
+    <h1>Firm desk</h1>
+    <form method="get" class="desk-period"><label>Reporting month <input name="month" type="month" required></label>
+      <button class="btn">View month</button></form>
+    <p id="desk-status" role="status" aria-live="polite"></p>
+    <div id="desk-root" aria-busy="true"></div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,7 @@
+.git
+.openai
+.work
+data
+tests
+.env*
+*.sqlite*

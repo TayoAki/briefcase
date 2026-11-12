@@ -1,0 +1,13 @@
+{
+  "name": "briefcase-solo",
+  "version": "0.8.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node server/start.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "maintenance": "node server/maintenance.mjs",
+    "records-scheduler": "node server/records-scheduler.mjs"
+  }
+}
