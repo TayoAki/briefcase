@@ -63,6 +63,7 @@ function sidebar() {
       ${icon('ChevronsUpDown', 13)}</button>` : ''}
     <nav aria-label="Workspace">
       <div class="side-group"><h2>Workspace</h2>${sideNav('matters', 'FolderOpen')}${state.store?.info.roleWork ? '<a class="side-nav" href="/role-work.html">' + icon('ListChecks', 17) + '<span>Role work</span></a>' : ''}
+      ${state.store?.info.agents ? '<a class="side-nav" href="/agents.html">' + icon('ListChecks', 17) + '<span>Agents</span></a>' : ''}
       ${state.store?.info.firmDesk ? '<a class="side-nav" href="/firm-desk.html">' + icon('Building2', 17) + '<span>Firm desk</span></a>' : ''}
       ${state.store?.info.workbench ? '<a class="side-nav" href="/workbench.html">' + icon('ListChecks', 17) + '<span>Specialist workflows</span></a>' : ''}
       ${state.store?.info.clientDevelopment ? '<a class="side-nav" href="/client-development.html">' + icon('Building2', 17) + '<span>Client development</span></a>' : ''}

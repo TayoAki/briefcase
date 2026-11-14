@@ -7,7 +7,7 @@ import { promisify } from 'node:util';
 import { ValidationError, limits, makeDocument, pageHasText, printedLabel } from '../dist/model.mjs';
 
 const exec = promisify(execFile);
-const run = (tool, args, timeout = 20000) => exec(tool, args, { timeout, maxBuffer: 2 * 1024 * 1024, env: { ...process.env, LC_ALL: 'C' } });
+const run = (tool, args, timeout = 20000) => exec(tool, args, { timeout, maxBuffer: 2 * 1024 * 1024, env: { ...process.env, LC_ALL: 'C', OMP_THREAD_LIMIT: process.env.OMP_THREAD_LIMIT ?? '1' } });
 export const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 
 async function pageCount(file) {

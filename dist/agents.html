@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agents · Briefcase</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/agents.css">
+  <script type="module" src="/agents-ui.mjs"></script>
+</head>
+<body class="agents-body">
+  <div class="agents" id="agents" aria-busy="true">
+    <aside class="agents-side" aria-label="Role agents">
+      <div class="agents-side-head">
+        <a class="agents-back" href="/">← Briefcase</a>
+        <h1>Agents</h1>
+        <p id="agents-model" class="agents-model"></p>
+        <input id="agents-search" type="search" placeholder="Search 65 role agents" aria-label="Search role agents">
+        <div class="agents-filters" role="group" aria-label="Filter agents">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="mine" aria-pressed="false">Needs me <span id="agents-inbox-count"></span></button>
+          <button type="button" data-filter="active" aria-pressed="false">Has work</button>
+        </div>
+      </div>
+      <nav id="agents-roster" class="agents-roster"></nav>
+    </aside>
+    <main class="agents-main" id="agents-main"></main>
+  </div>
+  <p id="agents-status" class="agents-toast" role="status" aria-live="polite"></p>
+</body>
+</html>

@@ -20,6 +20,7 @@ import { createClientDevelopment } from './client-development.mjs';
 import { createRiskIntake } from './risk-intake.mjs';
 import { createIdentityLifecycle } from './identity-lifecycle.mjs';
 import { createWorkbench } from './workbench.mjs';
+import { createAgents } from './agents.mjs';
 import { caseworkCandidates, searchMatter } from './casework.mjs';
 
 const site = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -88,7 +89,7 @@ function sampleMatter() {
   return matter;
 }
 
-export function buildApp({ database, users, origin, paperless, model, portal = false, railwayHealth = false, workbench: workbenchConfig = {} }) {
+export function buildApp({ database, users, origin, paperless, model, portal = false, railwayHealth = false, workbench: workbenchConfig = {}, agents: agentLimits = {} }) {
   const accounts = new Map(users.map(account => {
     const { username, password, firm, name, role = 'lawyer' } = account;
     if (!/^[\w.-]{1,60}$/.test(username ?? '') || typeof password !== 'string' || password.length < 12 ||
@@ -222,6 +223,8 @@ export function buildApp({ database, users, origin, paperless, model, portal = f
       },
       securityEvents: user => identity.security({ ...user, desk: [...user.desk, 'R61'] }),
     } });
+  const agents = createAgents({ db, accounts, team, HttpError, workbench, roleWork, isActive: identity.active, model,
+    skillsDir: fileURLToPath(new URL('./agents/skills', import.meta.url)), limits: agentLimits });
   const clientPortal = portal ? portalService({ db, HttpError, json, jsonInput, payload, transact, getMatter, save, original, originalAdd }) : null;
 
   async function route(req, res) {
@@ -256,7 +259,7 @@ export function buildApp({ database, users, origin, paperless, model, portal = f
     if (resource === 'bootstrap' && !matterId && req.method === 'GET') {
       return json(res, 200, {
         mode: 'server', actor: user.name, engine: importArchive ? 'Private Paperless and local OCR' : 'Local PDF and OCR',
-        model: Boolean(model?.url), portal: Boolean(clientPortal), role: user.role, username: user.username, team: true, roleWork: true, workbench: true, firmDesk: !user.matterOnly, clientDevelopment: !user.matterOnly, riskIntake: !user.matterOnly, matterOnly: user.matterOnly, identityAdmin: !user.matterOnly && user.desk.some(role => ['R55', 'R61'].includes(role)),
+        model: Boolean(model?.url), portal: Boolean(clientPortal), role: user.role, username: user.username, team: true, roleWork: true, workbench: true, agents: !user.matterOnly, firmDesk: !user.matterOnly, clientDevelopment: !user.matterOnly, riskIntake: !user.matterOnly, matterOnly: user.matterOnly, identityAdmin: !user.matterOnly && user.desk.some(role => ['R55', 'R61'].includes(role)),
       });
     }
     if (user.matterOnly && !['matters', 'role-work', 'workbench'].includes(resource)) {
@@ -278,6 +281,12 @@ export function buildApp({ database, users, origin, paperless, model, portal = f
           'Content-Disposition': "attachment; filename*=UTF-8''" + encodeURIComponent(result.name) });
         return res.end(result.bytes);
       }
+    }
+    if (resource === 'agents' && !target && !format) {
+      if (!matterId && req.method === 'GET') return json(res, 200, agents.overview(user));
+      if (matterId === 'runs' && !group && req.method === 'POST') return json(res, 201, { run: agents.start(user, await jsonInput(req, 24000)) });
+      if (matterId === 'runs' && group && req.method === 'GET') return json(res, 200, { run: agents.detail(user, group) });
+      if (matterId === 'runs' && group && req.method === 'POST') return json(res, 200, { run: agents.act(user, group, await jsonInput(req, 24000)) });
     }
     if (resource === 'identity' && !matterId && !group && !target && !format) {
       if (req.method === 'GET') return json(res, 200, { accounts: identity.view(user), accessEvents: identity.security(user), canActivate: user.desk.includes('R55'), username: user.username });

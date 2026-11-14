@@ -120,7 +120,7 @@ export function createRoleWork({ db, accounts, team, HttpError, transact, origin
     if (result.doc.sha256 !== binding.sha256) fail(409, 'The submitted PDF no longer matches the original.');
     return result;
   }
-  function update(user, id, input) {
+  function update(user, id, input, meta) {
     const item = itemFor(user, id);
     if (input.revision !== item.revision) fail(409, 'The item changed. Refresh and review the latest version.');
     const role = catalog.get(item.roleId);
@@ -148,7 +148,8 @@ export function createRoleWork({ db, accounts, team, HttpError, transact, origin
         ...(item.revisionRequest ? { revisionRequest: item.revisionRequest, receipt: item.receipt,
           receiptReturns: item.receiptReturns ?? [] } : {}) });
       const snapshot = { revision: item.revision + 1, author: user.username, output: text(input.output, role.output, 12000),
-        evidence: text(input.evidence, 'Supporting references', 4000), source: sourceFor(user, item, input) };
+        evidence: text(input.evidence, 'Supporting references', 4000), source: sourceFor(user, item, input),
+        ...(meta?.via ? { preparedWith: meta.via } : {}) };
       const files = outputFiles(user, item, input);
       if (files.length) snapshot.files = files;
       item.submission = { ...snapshot, sha256: roleRecordHash(snapshot) };
@@ -208,7 +209,7 @@ export function createRoleWork({ db, accounts, team, HttpError, transact, origin
       return { items, hasMore: rows.length > 50 };
     },
     open: (user, input) => transact(() => open(user, input)),
-    update: (user, id, input) => transact(() => update(user, id, input)),
+    update: (user, id, input, meta) => transact(() => update(user, id, input, meta)),
     detail(user, id) {
       const item = itemFor(user, id);
       const outputDocuments = item.matter && item.assignee === user.username && ['draft', 'returned'].includes(item.status) ?

@@ -128,7 +128,7 @@ export async function copyDatabase(source, destination) {
 }
 
 const tenantTableOrder = [
-  'portal_submissions', 'portal_grants', 'role_work_audit', 'role_work', 'specialist_work', 'firm_desk',
+  'portal_submissions', 'portal_grants', 'agent_runs', 'role_work_audit', 'role_work', 'specialist_work', 'firm_desk',
   'matter_audit', 'matter_members', 'matter_screens', 'originals', 'import_jobs', 'matters',
 ];
 

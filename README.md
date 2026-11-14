@@ -2,6 +2,11 @@
 
 Run a plaintiff PI matter from inquiry through closeout and review a medical chronology against its original PDF pages. The sample is fictional.
 
+
+## Role agents
+
+Open **Agents** in the workspace for the 65 role agents: each prepares one role's work under a supervising person and submits it to a reviewing lawyer. They need a connected model (`BRIEFCASE_MODEL_URL`, `BRIEFCASE_MODEL_NAME`, `BRIEFCASE_MODEL_KEY`). See [the agents plan](AGENTS_PLAN.md) for the design, what is built and what remains.
+
 ## Use the hosted pilot
 
 Open the sample matter and select any chronology event. The viewer opens its physical PDF page and displays the Bates label separately. Verify, edit, or exclude the open events. Select **Export**, approve the chronology, and download the CSV and source manifest. Approvals retains each approved version.

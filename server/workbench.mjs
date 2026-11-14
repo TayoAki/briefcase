@@ -59,10 +59,10 @@ export function createWorkbench({ db, accounts, team, HttpError, transact, origi
     if (Buffer.byteLength(state) > MAX_RECORD) fail(413, 'This work record is full. Start a follow-up assignment.');
     write.run(item.assignee, item.reviewer, state, item.firm, item.id);
   }
-  function event(item, user, action, note = '') {
+  function event(item, user, action, note = '', via) {
     item.revision += 1;
     item.updatedAt = new Date().toISOString();
-    item.history.push({ revision: item.revision, actor: user.username, action, at: item.updatedAt, note });
+    item.history.push({ revision: item.revision, actor: user.username, action, at: item.updatedAt, note, ...(via ? { via } : {}) });
     if (item.history.length > 500) fail(409, 'Start a follow-up assignment after 500 changes.');
   }
   function participants(item, user) {
@@ -207,7 +207,7 @@ export function createWorkbench({ db, accounts, team, HttpError, transact, origi
       if (field.type === 'select' && field.options && !field.options.map(o => typeof o === 'string' ? o : o.value).includes(value)) fail(422, 'Choose a listed ' + field.label + '.');
     }
   }
-  function create(user, input) {
+  function create(user, input, meta) {
     const def = catalog.get(input.roleId);
     if (!def) fail(422, 'Choose an available specialist workflow.');
     if (user.matterOnly || (user.role !== 'lawyer' && !user.desk.includes(input.roleId))) fail(403, 'A lawyer or authorized specialist must create this work.');
@@ -236,13 +236,13 @@ export function createWorkbench({ db, accounts, team, HttpError, transact, origi
     const ctx = context(user, item);
     checkFields(def.fields, input.data ?? {});
     item.data = def.create(input.data ?? {}, ctx);
-    item.history.push({ revision: 0, actor: user.username, action: 'created', at: item.updatedAt });
+    item.history.push({ revision: 0, actor: user.username, action: 'created', at: item.updatedAt, ...(meta?.via ? { via: meta.via } : {}) });
     const state = JSON.stringify(item);
     if (Buffer.byteLength(state) > MAX_RECORD) fail(413, 'The work record is too large.');
     insert.run(user.firm, item.id, user.username, input.requestId, assignee.username, reviewer.username, state);
     return { item, created: true };
   }
-  function update(user, id, input) {
+  function update(user, id, input, meta) {
     const item = itemFor(user, id);
     sameVersion(item, input);
     const def = catalog.get(item.roleId);
@@ -297,7 +297,7 @@ export function createWorkbench({ db, accounts, team, HttpError, transact, origi
       item.submission = null;
       item.status = 'draft';
     }
-    event(item, user, action, ['approve', 'return'].includes(action) ? input.notes : '');
+    event(item, user, action, ['approve', 'return'].includes(action) ? input.notes : '', meta?.via);
     persist(item);
     return item;
   }
@@ -321,8 +321,8 @@ export function createWorkbench({ db, accounts, team, HttpError, transact, origi
         ({ roleId, title, description, fields, actions, formats: ['json', ...(formats ?? [])], matterRequired: Boolean(matterRequired) })),
       roster: user.matterOnly ? [] : [...accounts.values()].filter(a => a.firm === user.firm && isActive(a)).map(({ username, name, role }) => ({ username, name, role })) };
     },
-    create: (user, input) => transact(() => { const result = create(user, input); return { ...result, item: project(user, result.item) }; }),
-    update: (user, id, input) => transact(() => project(user, update(user, id, input))),
+    create: (user, input, meta) => transact(() => { const result = create(user, input, meta); return { ...result, item: project(user, result.item) }; }),
+    update: (user, id, input, meta) => transact(() => project(user, update(user, id, input, meta))),
     detail,
     activeHolds,
     diligenceEvidence(user, { workItemId, inquiryId, requestReference, assignee, counsel }) {
